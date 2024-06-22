@@ -9,11 +9,14 @@ public class Entry {
     public string _promptText;
     public string _entryText;
 
+    // add entry number
+    public int _entryNumber;
 
 
-    public void Display() {
+
+    public void Display(int count) {
         // display the journal
-        Console.WriteLine($"Date: {_date} - Prompt: {_promptText}");
+        Console.WriteLine($"Entry: {_entryNumber}/{count}\nDate: {_date} - Prompt: {_promptText}");
         Console.WriteLine(_entryText);
         
     }

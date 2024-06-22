@@ -4,8 +4,12 @@ public class Journal {
 
 
     public void AddEntry(Entry newEntry) {
+        //get and save entry
         Console.Write($"{newEntry._promptText}\n> ");
         newEntry._entryText = Console.ReadLine();
+        //save entry number
+        newEntry._entryNumber = _entries.Count()+1;
+
         //add passed entry parameter to the _entries list 
         _entries.Add(newEntry);
     }
@@ -14,7 +18,8 @@ public class Journal {
         //display each entry
         foreach (Entry entry in _entries) {
             Console.WriteLine();
-            entry.Display();
+            //Extra credit. Pass total count into Entry for display
+            entry.Display(_entries.Count());
         }
         Console.WriteLine();
     }
@@ -23,7 +28,7 @@ public class Journal {
         using (StreamWriter outputFile = new StreamWriter(file)) {
             //started, but needs to figure out the format to write the date and prompt text
             foreach (Entry entry in _entries) {
-            outputFile.WriteLine($"{entry._date}|{entry._promptText}|{entry._entryText}");
+            outputFile.WriteLine($"{entry._entryNumber}|{entry._date}|{entry._promptText}|{entry._entryText}");
             }
         }
 
@@ -41,9 +46,10 @@ public class Journal {
             string[] partes = line.Split("|");
 
             //figure out in what order the items are stored.
-            entry._date = partes[0];
-            entry._promptText = partes[1];
-            entry._entryText = partes[2];
+            entry._entryNumber = int.Parse(partes[0]);
+            entry._date = partes[1];
+            entry._promptText = partes[2];
+            entry._entryText = partes[3];
 
             //add read items to current journal
             _entries.Add(entry);

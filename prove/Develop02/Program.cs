@@ -56,3 +56,6 @@ class Program
 
     }
 }
+
+
+//Extra Credit: I added a entry number to save in the Entry class, and on display, it displays the current entry number with the total amount of entries.
