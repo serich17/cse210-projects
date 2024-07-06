@@ -11,12 +11,11 @@ public class BreathingActivity : Activity {
         int seconds = GetDuration();
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(GetDuration());
-        Console.WriteLine("\n");
         while (DateTime.Now < endTime) {
             Console.Write("\nBreathe in...");
             ShowCountDown(4);
 
-            Console.Write("Now breathe out...");
+            Console.Write("\nNow breathe out...");
             ShowCountDown(6);
 
             seconds = seconds - 10;
