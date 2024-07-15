@@ -1,5 +1,6 @@
 using System.Diagnostics.Metrics;
 using System.IO;
+using System.Linq.Expressions;
 
 public class GoalManager {
     private List<Goal> _goals = new List<Goal>();
@@ -15,7 +16,7 @@ public class GoalManager {
     public void Start() {
         Console.Clear();
         string input = "";
-        while (input != "6") {
+        while (input != "7") {
             Console.WriteLine();
             DisplayPlayerInfo();
             Console.WriteLine("Menu Options:");
@@ -24,7 +25,8 @@ public class GoalManager {
             Console.WriteLine("3. Save Goals");
             Console.WriteLine("4. Load Goals");
             Console.WriteLine("5. Record Event");
-            Console.WriteLine("6. Quit");
+            Console.WriteLine("6. Point Summery");
+            Console.WriteLine("7. Quit");
             Console.Write("Select a choice from the menu: ");
             input = Console.ReadLine();
 
@@ -44,6 +46,9 @@ public class GoalManager {
                 RecordEvent();
             }
             else if (input == "6") {
+                PointSummery();
+            }
+            else if (input == "7") {
                 break;
             }
             else {
@@ -53,6 +58,18 @@ public class GoalManager {
 
         }
 
+    }
+
+    public void PointSummery() {
+        Console.WriteLine("Goals completed:");
+        int counter = 1;
+        foreach (Goal goal in _goals) {
+            if (goal.GetPointsGained() > 0) {
+                Console.WriteLine($"{counter}. {goal.GetName()} -- Points gained: {goal.GetPointsGained()}");
+                counter += 1;
+            }
+        }
+        
     }
 
     public void DisplayPlayerInfo() {
@@ -154,22 +171,22 @@ public class GoalManager {
             if (parts[0] == "SimpleGoal") {
                 SimpleGoal simpleGoal = new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]));
                 simpleGoal.SetBool(bool.Parse(parts[4]));
+                simpleGoal.SetPointsGained(int.Parse(parts[5]));
                 _goals.Add(simpleGoal);
             }
             else if (parts[0] == "EternalGoal") {
                 EternalGoal eternalGoal = new EternalGoal(parts[1], parts[2], int.Parse(parts[3]));
+                eternalGoal.SetPointsGained(int.Parse(parts[4]));
                 _goals.Add(eternalGoal);
             }
             else if (parts[0] == "ChecklistGoal") {
                 ChecklistGoal checklistGoal = new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[4]), int.Parse(parts[5]));
                 checklistGoal.SetAmountCompleted(int.Parse(parts[6]));
+                checklistGoal.SetPointsGained(int.Parse(parts[7]));
                 _goals.Add(checklistGoal);
             }
 
         }
 
     }
-
-
-
 }

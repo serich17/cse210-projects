@@ -7,6 +7,7 @@ public class EternalGoal : Goal {
 
 
     public override int RecordEvent() {
+        SetPointsGained(GetPointsGained() + GetPoints());
         return GetPoints();
 
     }
@@ -19,7 +20,7 @@ public class EternalGoal : Goal {
 
     public override string GetStringRepresentation()
     {
-        return $"EternalGoal|{GetName()}|{GetDescription()}|{GetPoints()}";;
+        return $"EternalGoal|{GetName()}|{GetDescription()}|{GetPoints()}|{GetPointsGained()}";;
     }
 
 
